@@ -6,3 +6,4 @@ GRAPHICS_DIR = BASE_DIR / "graphics"
 
 class GraphicsAssets:
     SKY_PATH = GRAPHICS_DIR / "sky.png"
+    GROUND_PATH = GRAPHICS_DIR / "ground.png"
