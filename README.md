@@ -1,3 +1,3 @@
-# Alias Adventure
+# Alia's Adventure
 
 A Simple pygame
