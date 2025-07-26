@@ -18,6 +18,9 @@ sky_surface = pygame.image.load(GraphicsAssets.SKY_PATH)
 ground_surface = pygame.image.load(GraphicsAssets.GROUND_PATH)
 text_surface = test_font.render("Alia's Adventure", False, "Black")
 
+snail_surface = pygame.image.load(GraphicsAssets.SNAIL_PATH)
+snail_x_position = GAME_WIDTH
+
 
 while True:
     for event in pygame.event.get():
@@ -28,6 +31,13 @@ while True:
     screen.blit(sky_surface, (0, 0))
     screen.blit(ground_surface, (0, 300))
     screen.blit(text_surface, (300, 50))
+
+    snail_x_position -= 4
+
+    if snail_x_position < 0:
+        snail_x_position = GAME_WIDTH
+
+    screen.blit(snail_surface, (snail_x_position, 250))
 
     # Draw all our elements
     # update everything

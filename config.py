@@ -8,6 +8,7 @@ FONT_DIR = BASE_DIR / "font"
 class GraphicsAssets:
     SKY_PATH = GRAPHICS_DIR / "sky.png"
     GROUND_PATH = GRAPHICS_DIR / "ground.png"
+    SNAIL_PATH = GRAPHICS_DIR / "snail" / "snail1.png"
 
 
 class FontsAssets:
