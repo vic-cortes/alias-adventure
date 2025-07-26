@@ -19,7 +19,11 @@ ground_surface = pygame.image.load(GraphicsAssets.GROUND_PATH).convert()
 text_surface = test_font.render("Alia's Adventure", False, "Black")
 
 snail_surface = pygame.image.load(GraphicsAssets.SNAIL_PATH).convert_alpha()
+snail_rectangle = snail_surface.get_rect(bottomright=(600, 300))
 snail_x_position = GAME_WIDTH
+
+player_surface = pygame.image.load(GraphicsAssets.PLAYER_PATH).convert_alpha()
+player_rectangle = player_surface.get_rect(midbottom=(80, 300))
 
 
 while True:
@@ -32,12 +36,14 @@ while True:
     screen.blit(ground_surface, (0, 300))
     screen.blit(text_surface, (300, 50))
 
-    snail_x_position -= 4
+    snail_rectangle.x -= 4
 
-    if snail_x_position < 0:
-        snail_x_position = GAME_WIDTH
+    if snail_rectangle.right < 0:
+        snail_rectangle.left = GAME_WIDTH
 
-    screen.blit(snail_surface, (snail_x_position, 250))
+    screen.blit(snail_surface, snail_rectangle)
+    player_rectangle.left += 1  # Move player to the right
+    screen.blit(player_surface, player_rectangle)
 
     # Draw all our elements
     # update everything
