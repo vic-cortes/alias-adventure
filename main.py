@@ -14,11 +14,11 @@ pygame.display.set_caption("Alia's Adventure")
 clock = pygame.time.Clock()
 test_font = pygame.font.Font(FontsAssets.MAIN_FONT, 50)
 
-sky_surface = pygame.image.load(GraphicsAssets.SKY_PATH)
-ground_surface = pygame.image.load(GraphicsAssets.GROUND_PATH)
+sky_surface = pygame.image.load(GraphicsAssets.SKY_PATH).convert()
+ground_surface = pygame.image.load(GraphicsAssets.GROUND_PATH).convert()
 text_surface = test_font.render("Alia's Adventure", False, "Black")
 
-snail_surface = pygame.image.load(GraphicsAssets.SNAIL_PATH)
+snail_surface = pygame.image.load(GraphicsAssets.SNAIL_PATH).convert_alpha()
 snail_x_position = GAME_WIDTH
 
 
