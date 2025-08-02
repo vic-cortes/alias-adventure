@@ -16,7 +16,10 @@ test_font = pygame.font.Font(FontsAssets.MAIN_FONT, 50)
 
 sky_surface = pygame.image.load(GraphicsAssets.SKY_PATH).convert()
 ground_surface = pygame.image.load(GraphicsAssets.GROUND_PATH).convert()
-text_surface = test_font.render("Alia's Adventure", False, "Black")
+
+RGB_COLOR = (64, 64, 64)
+score_surface = test_font.render("Alia's Adventure", False, RGB_COLOR)
+score_rect = score_surface.get_rect(center=(GAME_WIDTH / 2, 50))
 
 snail_surface = pygame.image.load(GraphicsAssets.SNAIL_PATH).convert_alpha()
 snail_rectangle = snail_surface.get_rect(bottomright=(600, 300))
@@ -38,7 +41,10 @@ while True:
 
     screen.blit(sky_surface, (0, 0))
     screen.blit(ground_surface, (0, 300))
-    screen.blit(text_surface, (300, 50))
+    pygame.draw.rect(screen, "#c0e8ec", score_rect)
+    pygame.draw.rect(screen, "#c0e8ec", score_rect, width=10)
+    # pygame.draw.line(screen, "Gold", (0, 300), (GAME_WIDTH, 300), width=2)
+    screen.blit(score_surface, score_rect)
 
     snail_rectangle.x -= 4
 

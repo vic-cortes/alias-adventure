@@ -11,6 +11,12 @@ class GraphicsAssets:
     SNAIL_PATH = GRAPHICS_DIR / "snail" / "snail1.png"
     PLAYER_PATH = GRAPHICS_DIR / "Player" / "player_walk_1.png"
 
+    # Alias Adventure specific assets
+    LIVING_ROOM_PATH = GRAPHICS_DIR / "background" / "living_room.png"
+
+    # Player assets
+    PLAYER_CELEBRATION_PATH = GRAPHICS_DIR / "sprites" / "celebration.png"
+
 
 class FontsAssets:
     MAIN_FONT = FONT_DIR / "Pixeltype.ttf"
