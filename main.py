@@ -39,13 +39,15 @@ while True:
         # if event.type == pygame.MOUSEMOTION:
         #     if player_rectangle.collidepoint(event.pos):
         #         print("Player rectangle collides with mouse position")
+        is_touching_ground = player_rectangle.bottom >= 300
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if player_rectangle.collidepoint(event.pos):
+            if player_rectangle.collidepoint(event.pos) and is_touching_ground:
                 player_gravity = -20  # Jump effect
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+
+            if event.key == pygame.K_SPACE and is_touching_ground:
                 player_gravity = -20  # Jump effect
 
         if event.type == pygame.KEYUP:
