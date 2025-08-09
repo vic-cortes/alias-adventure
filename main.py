@@ -8,6 +8,8 @@ LIMIT_FPS = 60
 GAME_WIDTH = 800
 GAME_HEIGHT = 400
 
+game_active = True
+
 pygame.init()
 screen = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
 pygame.display.set_caption("Alia's Adventure")
@@ -36,60 +38,58 @@ while True:
             pygame.quit()
             exit()
 
-        # if event.type == pygame.MOUSEMOTION:
-        #     if player_rectangle.collidepoint(event.pos):
-        #         print("Player rectangle collides with mouse position")
-        is_touching_ground = player_rectangle.bottom >= 300
+        if game_active:
+            is_touching_ground = player_rectangle.bottom >= 300
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if player_rectangle.collidepoint(event.pos) and is_touching_ground:
-                player_gravity = -20  # Jump effect
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if player_rectangle.collidepoint(event.pos) and is_touching_ground:
+                    player_gravity = -20  # Jump effect
 
-        if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
 
-            if event.key == pygame.K_SPACE and is_touching_ground:
-                player_gravity = -20  # Jump effect
+                if event.key == pygame.K_SPACE and is_touching_ground:
+                    player_gravity = -20  # Jump effect
 
-        if event.type == pygame.KEYUP:
-            pass
+            if event.type == pygame.KEYUP:
+                pass
+        else:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                game_active = True
+                snail_rectangle.left = GAME_WIDTH
 
-    screen.blit(sky_surface, (0, 0))
-    screen.blit(ground_surface, (0, 300))
-    pygame.draw.rect(screen, "#c0e8ec", score_rect)
-    pygame.draw.rect(screen, "#c0e8ec", score_rect, width=10)
-    # pygame.draw.line(screen, "Gold", (0, 300), (GAME_WIDTH, 300), width=2)
-    screen.blit(score_surface, score_rect)
+    if game_active:
+        screen.blit(sky_surface, (0, 0))
+        screen.blit(ground_surface, (0, 300))
+        pygame.draw.rect(screen, "#c0e8ec", score_rect)
+        pygame.draw.rect(screen, "#c0e8ec", score_rect, width=10)
+        # pygame.draw.line(screen, "Gold", (0, 300), (GAME_WIDTH, 300), width=2)
+        screen.blit(score_surface, score_rect)
 
-    snail_rectangle.x -= 4
+        snail_rectangle.x -= 4
 
-    if snail_rectangle.right < 0:
-        snail_rectangle.left = GAME_WIDTH
+        if snail_rectangle.right < 0:
+            snail_rectangle.left = GAME_WIDTH
 
-    screen.blit(snail_surface, snail_rectangle)
+        screen.blit(snail_surface, snail_rectangle)
 
-    # Player
-    player_gravity += 1
-    player_rectangle.y += player_gravity
+        # Player
+        player_gravity += 1
+        player_rectangle.y += player_gravity
 
-    if player_rectangle.bottom >= 300:
-        player_rectangle.bottom = 300
+        if player_rectangle.bottom >= 300:
+            player_rectangle.bottom = 300
 
-    screen.blit(player_surface, player_rectangle)
+        screen.blit(player_surface, player_rectangle)
 
-    # keys = pygame.key.get_pressed()
+        # Collision
 
-    # if keys.get(pygame.K_SPACE):
-    #     pass
+        if snail_rectangle.colliderect(player_rectangle):
+            game_active = False
+    else:
+        screen.fill((94, 129, 162))
+        player_rectangle.midbottom = (80, 300)
+        player_gravity = 0
 
-    # if player_rectangle.colliderect(snail_rectangle):
-    #     pass
-
-    # mouse_position = pygame.mouse.get_pos()
-
-    # if player_rectangle.collidepoint(mouse_position):
-    #     print("Player rectangle collides with mouse position")
-
-    # Draw all our elements
     # update everything
     pygame.display.update()
     clock.tick(LIMIT_FPS)
