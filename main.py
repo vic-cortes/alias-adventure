@@ -9,7 +9,7 @@ GAME_WIDTH = 800
 GAME_HEIGHT = 400
 TO_SECONDS = 1_000
 
-game_active = True
+game_active = False
 start_time = 0
 
 
@@ -19,7 +19,7 @@ def display_score():
     """
 
     current_time = (pygame.time.get_ticks() // TO_SECONDS) - start_time
-    score_surface = test_font.render(f"{current_time}", False, RGB_COLOR)
+    score_surface = test_font.render(f"Score {current_time}", False, RGB_COLOR)
     score_rect = score_surface.get_rect(center=(GAME_WIDTH / 2, 50))
     screen.blit(score_surface, score_rect)
 
@@ -45,6 +45,16 @@ player_surface = pygame.image.load(GraphicsAssets.PLAYER_PATH).convert_alpha()
 player_rectangle = player_surface.get_rect(midbottom=(80, 300))
 
 player_gravity = 0
+
+# Intro Screen
+player_stand = pygame.image.load(GraphicsAssets.PLAYER_STAND_PATH).convert_alpha()
+# player_stand = pygame.transform.scale(
+#     player_stand,
+#     (player_stand.get_width() * 2, player_stand.get_height() * 2),
+# )
+# player_stand = pygame.transform.scale2x(player_stand)
+player_stand = pygame.transform.rotozoom(surface=player_stand, angle=0, scale=2)
+player_stand_rectangle = player_stand.get_rect(center=(GAME_WIDTH / 2, GAME_HEIGHT / 2))
 
 while True:
     for event in pygame.event.get():
@@ -103,8 +113,7 @@ while True:
             game_active = False
     else:
         screen.fill((94, 129, 162))
-        player_rectangle.midbottom = (80, 300)
-        player_gravity = 0
+        screen.blit(player_stand, player_stand_rectangle)
 
     # update everything
     pygame.display.update()
