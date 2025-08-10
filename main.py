@@ -7,8 +7,22 @@ from config import FontsAssets, GraphicsAssets
 LIMIT_FPS = 60
 GAME_WIDTH = 800
 GAME_HEIGHT = 400
+TO_SECONDS = 1_000
 
 game_active = True
+start_time = 0
+
+
+def display_score():
+    """
+    Display the current score on the screen.
+    """
+
+    current_time = (pygame.time.get_ticks() // TO_SECONDS) - start_time
+    score_surface = test_font.render(f"{current_time}", False, RGB_COLOR)
+    score_rect = score_surface.get_rect(center=(GAME_WIDTH / 2, 50))
+    screen.blit(score_surface, score_rect)
+
 
 pygame.init()
 screen = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
@@ -56,14 +70,16 @@ while True:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_active = True
                 snail_rectangle.left = GAME_WIDTH
+                start_time = pygame.time.get_ticks() // TO_SECONDS
 
     if game_active:
         screen.blit(sky_surface, (0, 0))
         screen.blit(ground_surface, (0, 300))
-        pygame.draw.rect(screen, "#c0e8ec", score_rect)
-        pygame.draw.rect(screen, "#c0e8ec", score_rect, width=10)
+        # pygame.draw.rect(screen, "#c0e8ec", score_rect)
+        # pygame.draw.rect(screen, "#c0e8ec", score_rect, width=10)
         # pygame.draw.line(screen, "Gold", (0, 300), (GAME_WIDTH, 300), width=2)
-        screen.blit(score_surface, score_rect)
+        display_score()
+        # screen.blit(score_surface, score_rect)
 
         snail_rectangle.x -= 4
 
